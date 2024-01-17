@@ -12,6 +12,7 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
+from services.notifications import *
 
 app = Flask(__name__)
 frontend = os.getenv('FRONTEND_URL')
@@ -59,6 +60,12 @@ def data_create_message():
   else:
     return model['data'], 200
   return
+
+@app.route("/api/notifications", methods=['GET'])
+@cross_origin()
+def get_notifications():
+  data = Notifications.run()
+  return data
 
 @app.route("/api/activities/home", methods=['GET'])
 def data_home():
