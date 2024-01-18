@@ -14,3 +14,11 @@ tasks:
       unzip awscliv2.zip
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
+
+ports:
+  - port: 4567
+    visibility: public
+    name: Backend
+  - port: 3000
+    visibility: public
+    name: Frontend
