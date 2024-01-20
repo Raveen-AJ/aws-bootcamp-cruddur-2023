@@ -9,6 +9,12 @@ services:
       - ./backend-flask:/backend-flask
     ports:
       - "4567:4567"
+    healthcheck:
+      test: curl -f http://localhost/api/activities/home || exit 1
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
