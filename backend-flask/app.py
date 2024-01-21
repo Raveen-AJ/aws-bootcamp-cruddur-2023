@@ -15,7 +15,13 @@ from services.show_activity import *
 from services.notifications import *
 
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from honeycomb.opentelemetry import configure_opentelemetry, HoneycombOptions
 
+configure_opentelemetry(
+    HoneycombOptions(
+        debug=True
+    )
+)
 
 app = Flask(__name__)
 
