@@ -4,6 +4,8 @@ services:
     environment:
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      HONEYCOMB_API_KEY: ${HONEYCOMB_API_KEY}
+      OTEL_SERVICE_NAME: "backend-flask"
     build: ./backend-flask
     volumes:
       - ./backend-flask:/backend-flask
