@@ -14,7 +14,13 @@ from services.create_message import *
 from services.show_activity import *
 from services.notifications import *
 
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+
+
 app = Flask(__name__)
+
+FlaskInstrumentor().instrument_app(app)
+
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
