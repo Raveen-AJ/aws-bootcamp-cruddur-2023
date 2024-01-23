@@ -14,14 +14,25 @@ from services.create_message import *
 from services.show_activity import *
 from services.notifications import *
 
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+
 from honeycomb.opentelemetry import configure_opentelemetry, HoneycombOptions
 
-configure_opentelemetry(
-    HoneycombOptions(
-        debug=True
-    )
-)
+from opentelemetry.sdk.extension.aws.trace import AwsXRayIdGenerator
+
+otlp_exporter = OTLPSpanExporter(endpoint="http://localhost:4317")
+span_processor = BatchSpanProcessor(otlp_exporter)
+trace.set_tracer_provider(TracerProvider(active_span_processor=span_processor, id_generator=AwsXRayIdGenerator()))
+
+# configure_opentelemetry(
+#     HoneycombOptions(
+#         debug=True
+#     )
+# )
 
 app = Flask(__name__)
 
