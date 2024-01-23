@@ -22,3 +22,6 @@ ports:
   - port: 3000
     visibility: public
     name: Frontend
+  - port: 4317
+    visibility: public
+    name: X-ray
