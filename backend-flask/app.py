@@ -24,7 +24,7 @@ from honeycomb.opentelemetry import configure_opentelemetry, HoneycombOptions
 
 from opentelemetry.sdk.extension.aws.trace import AwsXRayIdGenerator
 
-otlp_exporter = OTLPSpanExporter(endpoint="https://4317-raveenaj-awsbootcampcru-zloxf5q0r9g.ws-us107.gitpod.io")
+otlp_exporter = OTLPSpanExporter(endpoint=os.getenv('AWS_COLLECTOR'))
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.set_tracer_provider(TracerProvider(active_span_processor=span_processor, id_generator=AwsXRayIdGenerator()))
 

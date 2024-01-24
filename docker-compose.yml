@@ -6,6 +6,7 @@ services:
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       HONEYCOMB_API_KEY: ${HONEYCOMB_API_KEY}
       OTEL_SERVICE_NAME: "backend-flask"
+      AWS_COLLECTOR: "https://4317-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
     build: ./backend-flask
     volumes:
       - ./backend-flask:/backend-flask
