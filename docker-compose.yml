@@ -38,6 +38,8 @@ services:
       AWS_REGION: $AWS_REGION
     volumes:
       - ./config.yaml:/etc/otel-agent-config.yaml
+      - ./test.crt:/etc/test.crt
+      - ./test-privateKey.key:/etc/test-privateKey.key
     ports:
       - "4317:4317"
       - "4318:4318"

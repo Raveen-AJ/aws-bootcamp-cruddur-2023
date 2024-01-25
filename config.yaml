@@ -22,7 +22,9 @@ exporters:
   otlp:
     endpoint: "api.honeycomb.io"
     tls:
-      insecure: true
+      cert_file: "test.crt"
+      key_file: "test-privateKey.key"
+      insecure_skip_verify: true
     headers:
       "x-honeycomb-team": "98cLBTXfZmtxcXOQsXFtmH"
     auth:
