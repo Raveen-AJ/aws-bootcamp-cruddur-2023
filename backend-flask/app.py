@@ -17,7 +17,7 @@ from services.notifications import *
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 
 from opentelemetry import trace
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
@@ -26,7 +26,7 @@ resource = Resource(attributes={
     SERVICE_NAME: "backend-flask"
 })
 traceProvider = TracerProvider(resource=resource)
-traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint="https://4317-raveenaj-awsbootcampcru-r7xuhuxm9rk.ws-us107.gitpod.io", insecure=True)))
+traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint="https://4318-raveenaj-awsbootcampcru-5a7l7ohy9i7.ws-us107.gitpod.io")))
 trace.set_tracer_provider(traceProvider)
 
 # configure_opentelemetry(

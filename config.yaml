@@ -10,7 +10,7 @@ receivers:
         endpoint: 0.0.0.0:4318
         cors:
             allowed_origins:
-              - https://4567-raveenaj-awsbootcampcru-rwljnuk4qs2.ws-us107.gitpod.io
+              - https://4567-raveenaj-awsbootcampcru-5a7l7ohy9i7.ws-us107.gitpod.io
             max_age: 7200
 
   awsxray:
