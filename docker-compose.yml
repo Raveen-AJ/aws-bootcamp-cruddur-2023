@@ -40,7 +40,6 @@ services:
       - "4317:4317"
       - "4318:4318"
       - "2000:2000"
-      - "8888:8888"
     
 
 # the name flag is a hack to change the default prepend folder

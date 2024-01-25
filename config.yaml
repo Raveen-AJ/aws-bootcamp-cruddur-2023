@@ -6,36 +6,34 @@ receivers:
     protocols:
       grpc:
         endpoint: 0.0.0.0:4317
+        cors:
+            allowed_origins:
+              - https://4567-raveenaj-awsbootcampcru-rwljnuk4qs2.ws-us107.gitpod.io
+            max_age: 7200
       http:
         endpoint: 0.0.0.0:4318
         cors:
             allowed_origins:
-              - https://4567-raveenaj-awsbootcampcru-mlqtc14g12v.ws-us107.gitpod.io
+              - https://4567-raveenaj-awsbootcampcru-rwljnuk4qs2.ws-us107.gitpod.io
             max_age: 7200
-  awsxray:
-    endpoint: 0.0.0.0:2000
-    transport: udp
 
-processors:
-  batch/traces:
-    timeout: 1s
-    send_batch_size: 50
-  batch/metrics:
-    timeout: 60s
+  awsxray:
 
 exporters:
   awsxray:
-  awsemf:
+  otlp:
+    endpoint: "api.honeycomb.io:443"
+    headers:
+      "x-honeycomb-team": "98cLBTXfZmtxcXOQsXFtmH"
+
+processors:
+  batch/traces:
 
 service:
   pipelines:
     traces:
       receivers: [otlp,awsxray]
       processors: [batch/traces]
-      exporters: [awsxray]
-    metrics:
-      receivers: [otlp]
-      processors: [batch/metrics]
-      exporters: [awsemf]
+      exporters: [awsxray, otlp]
 
   extensions: [health_check]
