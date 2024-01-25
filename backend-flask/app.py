@@ -23,10 +23,10 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExport
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
 resource = Resource(attributes={
-    SERVICE_NAME: "backend-flask"
+    SERVICE_NAME: os.getenv("OTEL_SERVICE_NAME")
 })
 traceProvider = TracerProvider(resource=resource)
-traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint="https://4318-raveenaj-awsbootcampcru-5a7l7ohy9i7.ws-us107.gitpod.io")))
+traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint=os.getenv("ENDPOINT"))))
 trace.set_tracer_provider(traceProvider)
 
 # configure_opentelemetry(
