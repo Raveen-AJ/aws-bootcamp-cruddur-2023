@@ -26,7 +26,7 @@ resource = Resource(attributes={
     SERVICE_NAME: "backend-flask"
 })
 traceProvider = TracerProvider(resource=resource)
-traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint="https://2000-raveenaj-awsbootcampcru-rwljnuk4qs2.ws-us107.gitpod.io", insecure=True)))
+traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint="https://4317-raveenaj-awsbootcampcru-r7xuhuxm9rk.ws-us107.gitpod.io", insecure=True)))
 trace.set_tracer_provider(traceProvider)
 
 # configure_opentelemetry(
