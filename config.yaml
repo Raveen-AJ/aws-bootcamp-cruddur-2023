@@ -1,9 +1,7 @@
 extensions:
   health_check:
   sigv4auth:
-    assume_role:
-      arn: "arn:aws:iam::339712997298:user/raveen-iam"
-      sts_region: "us-east-1"
+    region: "us-east-1"
 
 receivers:
   otlp:
@@ -14,7 +12,7 @@ receivers:
         endpoint: 0.0.0.0:4318
         cors:
             allowed_origins:
-              - https://4567-raveenaj-awsbootcampcru-6q8ydwi0cy0.ws-us107.gitpod.io
+              - https://4567-raveenaj-awsbootcampcru-jen7yud3i3w.ws-us107.gitpod.io
             max_age: 7200
 
   awsxray:
@@ -22,9 +20,13 @@ receivers:
 exporters:
   awsxray:
   otlp:
-    endpoint: "api.honeycomb.io:443"
+    endpoint: "api.honeycomb.io"
+    tls:
+      insecure: true
     headers:
       "x-honeycomb-team": "98cLBTXfZmtxcXOQsXFtmH"
+    auth:
+      authenticator: sigv4auth
 
 processors:
   batch/traces:
@@ -36,4 +38,4 @@ service:
       processors: [batch/traces]
       exporters: [awsxray, otlp]
 
-  extensions: [health_check]
+  extensions: [health_check, sigv4auth]
