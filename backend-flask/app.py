@@ -15,21 +15,17 @@ from services.show_activity import *
 from services.notifications import *
 
 from opentelemetry import trace
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from opentelemetry.semconv.resource import ResourceAttributes
-
 
 provider = TracerProvider()
-span_exporter = OTLPSpanExporter(headers={"x-honeycomb-team": os.getenv("HONEYCOMB_API_KEY")})
+span_exporter = OTLPSpanExporter()
 processor = BatchSpanProcessor(span_exporter)
 
 trace.set_tracer_provider(provider)
 provider.add_span_processor(processor)
-
 
 app = Flask(__name__)
 
