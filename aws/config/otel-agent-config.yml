@@ -1,4 +1,5 @@
 receivers:
+  awsxray:
   otlp:
     protocols:
       grpc:
@@ -7,6 +8,7 @@ receivers:
         endpoint: 0.0.0.0:4318
         
 exporters:
+  awsxray:
   otlp:
     endpoint: "api.honeycomb.io:443"
     headers:
@@ -18,6 +20,6 @@ processors:
 service:
   pipelines:
     traces:
-      receivers: [otlp]
+      receivers: [otlp, awsxray]
       processors: [batch/traces]
-      exporters: [otlp]
+      exporters: [otlp, awsxray]
