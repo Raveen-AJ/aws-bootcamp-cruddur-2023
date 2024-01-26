@@ -6,9 +6,7 @@ services:
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       HONEYCOMB_API_KEY: ${HONEYCOMB_API_KEY}
       OTEL_SERVICE_NAME: "backend-flask"
-      ENDPOINT: "https://4318-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      GRPC_VERBOSITY: debug
-      GRPC_TRACE: http,call_error,connectivity_state
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://4317-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
     build: ./backend-flask
     volumes:
       - ./backend-flask:/backend-flask
@@ -31,19 +29,12 @@ services:
       - "3000:3000"
   aws-otel-collector:
     image: public.ecr.aws/aws-observability/aws-otel-collector:latest
-    command: ["--config=/etc/otel-agent-config.yaml"]
     environment:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       AWS_REGION: $AWS_REGION
-    volumes:
-      - ./config.yaml:/etc/otel-agent-config.yaml
-      - ./test.crt:/etc/test.crt
-      - ./test-privateKey.key:/etc/test-privateKey.key
     ports:
       - "4317:4317"
-      - "4318:4318"
-      - "2000:2000"
     
 
 # the name flag is a hack to change the default prepend folder

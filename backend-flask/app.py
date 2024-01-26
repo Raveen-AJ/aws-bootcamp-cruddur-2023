@@ -14,26 +14,22 @@ from services.create_message import *
 from services.show_activity import *
 from services.notifications import *
 
-from opentelemetry.sdk.resources import SERVICE_NAME, Resource
-
 from opentelemetry import trace
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+from opentelemetry.sdk.resources import Resource
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.semconv.resource import ResourceAttributes
 
-resource = Resource(attributes={
-    SERVICE_NAME: os.getenv("OTEL_SERVICE_NAME")
-})
-traceProvider = TracerProvider(resource=resource)
-traceProvider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint=os.getenv("ENDPOINT"))))
-trace.set_tracer_provider(traceProvider)
 
-# configure_opentelemetry(
-#     HoneycombOptions(
-#         debug=True
-#     )
-# )
+provider = TracerProvider()
+span_exporter = OTLPSpanExporter(headers={"x-honeycomb-team": os.getenv("HONEYCOMB_API_KEY")})
+processor = BatchSpanProcessor(span_exporter)
+
+trace.set_tracer_provider(provider)
+provider.add_span_processor(processor)
+
 
 app = Flask(__name__)
 
