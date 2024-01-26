@@ -22,6 +22,6 @@ ports:
   - port: 3000
     visibility: public
     name: Frontend
-  - port: 4317
+  - port: 4318
     visibility: public
-    name: X-ray
+    name: OTEL-Agent-HTTP

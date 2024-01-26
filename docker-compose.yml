@@ -26,7 +26,7 @@ services:
       - /frontend-react-js/node_modules
     ports:
       - "3000:3000"
-  aws-otel-collector:
+  otel-agent:
     image: public.ecr.aws/aws-observability/aws-otel-collector:latest
     command: ["--config=/etc/otel-agent-config.yml"]
     environment:
