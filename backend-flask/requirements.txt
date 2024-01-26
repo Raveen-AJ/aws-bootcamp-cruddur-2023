@@ -1,6 +1,7 @@
 flask
 flask-cors
 
-honeycomb-opentelemetry==0.2.4b0
-opentelemetry-instrumentation-flask==0.43b0
-opentelemetry-sdk-extension-aws~=2.0
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-otlp
+opentelemetry-instrumentation-flask
