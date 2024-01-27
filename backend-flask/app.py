@@ -14,12 +14,24 @@ from services.create_message import *
 from services.show_activity import *
 from services.notifications import *
 
+# OTEL imports
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+# end of OTEL imports
 
+# CloudWatch imports
+from watchtower import CloudWatchLogHandler
+import logging
+# end of CloudWatch imports
+
+app = Flask(__name__)
+
+logging.basicConfig(level=logging.INFO)
+
+# OTEL tracing (honeycomb, aws x-ray)
 provider = TracerProvider()
 span_exporter = OTLPSpanExporter()
 processor = BatchSpanProcessor(span_exporter)
@@ -27,9 +39,13 @@ processor = BatchSpanProcessor(span_exporter)
 trace.set_tracer_provider(provider)
 provider.add_span_processor(processor)
 
-app = Flask(__name__)
-
 FlaskInstrumentor().instrument_app(app)
+# end of OTEL tracing
+
+# AWS CloudWatch
+handler = CloudWatchLogHandler(log_group_name="Cruddur", log_stream_name="backend-flask/{program_name}/{process_id}")
+logging.getLogger().addHandler(handler)
+# end of AWS CloudWatch
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')

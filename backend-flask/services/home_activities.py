@@ -1,8 +1,13 @@
+import logging
+
 from datetime import datetime, timedelta, timezone
 from opentelemetry import trace
 
+
 class HomeActivities:
   def run():
+    logging.info("HomeActivities.run")
+    
     now = datetime.now(timezone.utc).astimezone()
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
@@ -51,5 +56,7 @@ class HomeActivities:
     with tracer.start_as_current_span("response") as span:
       span.set_attribute("response.item_count", len(results))
       span.set_attribute("response.body", str(results))
+
+    logging.info("response: " + str(results))
       
     return results
