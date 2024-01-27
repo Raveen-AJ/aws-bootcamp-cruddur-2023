@@ -20,12 +20,18 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
-# end of OTEL imports
+# end
 
 # CloudWatch imports
 from watchtower import CloudWatchLogHandler
 import logging
-# end of CloudWatch imports
+# end
+
+# Rollbar imports
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+# end
 
 app = Flask(__name__)
 
@@ -40,12 +46,22 @@ trace.set_tracer_provider(provider)
 provider.add_span_processor(processor)
 
 FlaskInstrumentor().instrument_app(app)
-# end of OTEL tracing
+# end
 
 # AWS CloudWatch
 handler = CloudWatchLogHandler(log_group_name="Cruddur", log_stream_name="backend-flask/{program_name}/{process_id}")
 logging.getLogger().addHandler(handler)
-# end of AWS CloudWatch
+# end
+
+# Rollbar init
+rollbar.init(
+    os.getenv("ROLLBAR_ACCESS_TOKEN"),
+    os.getenv("APP_ENVIRONMENT"),
+    root=os.path.dirname(os.path.realpath(__file__)),
+    allow_logging_basic_config=False
+)
+got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+# end
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
@@ -57,6 +73,10 @@ cors = CORS(
   allow_headers="content-type,if-modified-since",
   methods="OPTIONS,GET,HEAD,POST"
 )
+
+@app.route("/rollbar/test")
+def rollbar_test():
+  return http.client.INTERNAL_SERVER_ERROR
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():

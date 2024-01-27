@@ -7,3 +7,5 @@ opentelemetry-exporter-otlp
 opentelemetry-instrumentation-flask
 
 watchtower
+
+rollbar
