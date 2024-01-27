@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+from http.client import INTERNAL_SERVER_ERROR
 
 from services.home_activities import *
 from services.user_activities import *
@@ -54,6 +55,8 @@ logging.getLogger().addHandler(handler)
 # end
 
 # Rollbar init
+print(os.getenv("ROLLBAR_ACCESS_TOKEN"))
+print(os.getenv("APP_ENVIRONMENT"))
 rollbar.init(
     os.getenv("ROLLBAR_ACCESS_TOKEN"),
     os.getenv("APP_ENVIRONMENT"),
@@ -76,7 +79,7 @@ cors = CORS(
 
 @app.route("/rollbar/test")
 def rollbar_test():
-  return http.client.INTERNAL_SERVER_ERROR
+  return INTERNAL_SERVER_ERROR
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
