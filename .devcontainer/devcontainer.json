@@ -3,34 +3,33 @@
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {}
 	},
-	"portsAttributes": {
-		"4567": {
-			"label": "Otel-Collector",
-			"visibility": "public"
-		},
-		"3000": {
-			"label": "Frontend",
-			"visibility": "public"
-		},
-		"4318": {
-			"label": "Backend",
-			"visibility": "public"
-		}
-	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-azuretools.vscode-docker",
-				"ms-python.python"
+				"ms-python.python",
+				"dsznajder.es7-react-js-snippets",
+				"cstrap.flask-snippets"
 			]
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [3000, 4567, 4318],
+	"portsAttributes": {
+		"4567": {
+			"label": "Backend"
+		},
+		"3000": {
+			"label": "Frontend"
+		},
+		"4318": {
+			"label": "Otel-Collector"
+		}
+	}
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
