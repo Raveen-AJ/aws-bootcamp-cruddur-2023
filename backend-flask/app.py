@@ -55,8 +55,6 @@ logging.getLogger().addHandler(handler)
 # end
 
 # Rollbar init
-print(os.getenv("ROLLBAR_ACCESS_TOKEN"))
-print(os.getenv("APP_ENVIRONMENT"))
 rollbar.init(
     os.getenv("ROLLBAR_ACCESS_TOKEN"),
     os.getenv("APP_ENVIRONMENT"),
