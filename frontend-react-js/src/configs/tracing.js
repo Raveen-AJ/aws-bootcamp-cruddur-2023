@@ -34,7 +34,7 @@ registerInstrumentations({
     getWebAutoInstrumentations({
       '@opentelemetry/instrumentation-fetch': {
         propagateTraceHeaderCorsUrls: [
-          process.env.REACT_APP_BACKEND_URL,
+          /https?:\/\/4567.+/g,
         ],
       },
     }),
