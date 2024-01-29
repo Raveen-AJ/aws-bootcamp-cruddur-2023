@@ -32,15 +32,9 @@ provider.register({
 registerInstrumentations({
   instrumentations: [
     getWebAutoInstrumentations({
-      // load custom configuration for xml-http-request instrumentation
-      '@opentelemetry/instrumentation-xml-http-request': {
-        propagateTraceHeaderCorsUrls: [
-          /https?:\/\/4567.+/g, //Regex to match your backend urls. This should be updated.
-        ],
-      },
       '@opentelemetry/instrumentation-fetch': {
         propagateTraceHeaderCorsUrls: [
-          /https?:\/\/4567.+/g, //Regex to match your backend urls. This should be updated.
+          process.env.REACT_APP_BACKEND_URL,
         ],
       },
     }),

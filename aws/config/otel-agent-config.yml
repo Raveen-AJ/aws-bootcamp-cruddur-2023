@@ -8,8 +8,8 @@ receivers:
         endpoint: 0.0.0.0:4318
         cors:
           allowed_origins:
-            - http://*
-            - https://*
+            - ${FRONTEND_URL}
+            - ${BACKEND_URL}
         
 exporters:
   awsxray:
