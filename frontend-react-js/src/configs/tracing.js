@@ -34,7 +34,7 @@ registerInstrumentations({
     getWebAutoInstrumentations({
       '@opentelemetry/instrumentation-fetch': {
         propagateTraceHeaderCorsUrls: [
-          /https?:\/\/4567.+/g,
+          /https?:\/\/4567-raveenaj-awsbootcampcru-.+/g,
         ],
       },
     }),
