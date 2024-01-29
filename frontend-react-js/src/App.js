@@ -15,6 +15,7 @@ import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
+import "./configs/tracing"
 
 const router = createBrowserRouter([
   {
