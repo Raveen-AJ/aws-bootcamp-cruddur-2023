@@ -17,7 +17,7 @@ const exporter = new OTLPTraceExporter({
 // The TracerProvider is the core library for creating traces
 const provider = new WebTracerProvider({
   resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: "backend-flask",
+    [SemanticResourceAttributes.SERVICE_NAME]: "frontend-react-js",
   }),
 });
 // The processor sorts through data as it comes in, before it is sent to the exporter
