@@ -16,6 +16,7 @@ import {
   RouterProvider
 } from "react-router-dom";
 import "./configs/tracing"
+import "./configs/cognito"
 
 const router = createBrowserRouter([
   {
