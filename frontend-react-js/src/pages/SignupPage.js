@@ -1,6 +1,6 @@
 import './SignupPage.css';
 import React from "react";
-import {ReactComponent as Logo} from '../components/svg/logo.svg';
+import { ReactComponent as Logo } from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
 import { Auth } from 'aws-amplify';
@@ -20,7 +20,7 @@ export default function SignupPage() {
     try {
       await Auth.signUp({
         username: email,
-        password,
+        password: password,
         attributes: {
           name: name,
         },
